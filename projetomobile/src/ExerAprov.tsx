@@ -26,7 +26,7 @@ const Aprovado = () =>{
     //return vai ter os inputs
     return (
        <>
-       <view style={StyleSheet.container}>
+       <View style={StyleSheet.container}>
                
                 <TextInput
                     style={StyleSheet.input}
@@ -43,7 +43,7 @@ const Aprovado = () =>{
                 >
                     <Text style={StyleSheet.botaoText}>Login</Text>
                 </TouchableOpacity>
-                </view>
+                </View>
        </>
     );
 
