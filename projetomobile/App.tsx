@@ -5,11 +5,11 @@ import HelloWorld from './src/HelloWorld';
 import Gato from './src/Exemplo2Gato';
 import NomePersonalizado from './src/ExemploParametro';
 import Aprovado from './src/ExerAprov';
-import Tela from './src/TelaLogin';
+import TelaLogin from './src/TelaLogin';
 
 function App(): React.JSX.Element{
   return(
-    <Aprovado/>
+    <TelaLogin/>
     //<Tela/>
     
   //  <>

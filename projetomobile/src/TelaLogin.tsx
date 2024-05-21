@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Alert, View, Text, Image, ScrollView, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
+import auth from "@react-native-firebase/auth";
+
 const clicou = () => {
     Alert.alert("Abner Silva", "Voce terminou a execução!");
 }
@@ -9,8 +11,40 @@ const Tela = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    function log(){
-        console.log('Email:' + email + '\nSenha:' + senha)
+    function log() {
+        if (verificaCampos()) {
+
+            auth()
+                .signInWithEmailAndPassword(email, senha)
+                .then(() => { Alert.alert('Logado com sucesso') })
+                .catch((error) => tratarErros(String(error)))
+
+        }
+
+    }
+
+    function verificaCampos() {
+        if (email == '') {
+            Alert.alert("email em branco", "digite um email")
+            return false;
+        }
+        if (email == '') {
+            Alert.alert("senha em branco", "digite uma senha")
+            return false;
+        }
+        return false;
+    }
+
+    function tratarErros(erro: String) {
+        console.log(erro);
+        if (erro.includes("[auth/invalid-email]")) {
+            Alert.alert("Email invalido", "digite um email valido")
+
+        } else if (erro.includes("[INVALID_LOGIN-CREDENTIALS]")) {
+            Alert.alert("login ou senha incorretos", "")
+        } else {
+            Alert.alert("erro", erro)
+        }
     }
     return (
         <>
@@ -79,3 +113,5 @@ const styles = StyleSheet.create({
 })
 
 export default Tela;
+
+
