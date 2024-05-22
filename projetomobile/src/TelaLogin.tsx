@@ -1,117 +1,126 @@
 import React, { useState } from 'react';
-import { Alert, View, Text, Image, ScrollView, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Image, Alert } from 'react-native';
 
 import auth from "@react-native-firebase/auth";
 
-const clicou = () => {
-    Alert.alert("Abner Silva", "Voce terminou a execução!");
-}
+const Login = () => {
+    const [email, setEmail] = useState(''); 
+    const [senha, setSenha] = useState(''); 
 
-const Tela = () => {
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-
-    function log() {
+    function logar() {
         if (verificaCampos()) {
 
             auth()
                 .signInWithEmailAndPassword(email, senha)
                 .then(() => { Alert.alert('Logado com sucesso') })
-                .catch((error) => tratarErros(String(error)))
-
+                .catch((error) => tratarErros( String(error) ))
         }
-
     }
 
-    function verificaCampos() {
-        if (email == '') {
-            Alert.alert("email em branco", "digite um email")
+    function verificaCampos(){
+        if (email == ''){
+            Alert.alert("Email em branco", "Digite um email")
             return false;
         }
-        if (email == '') {
-            Alert.alert("senha em branco", "digite uma senha")
+        if (senha == ''){
+            Alert.alert("Senha em branco", "Digite uma senha")
             return false;
         }
-        return false;
+
+        return true;
     }
 
-    function tratarErros(erro: String) {
+    function tratarErros(erro: string){
         console.log(erro);
-        if (erro.includes("[auth/invalid-email]")) {
-            Alert.alert("Email invalido", "digite um email valido")
-
-        } else if (erro.includes("[INVALID_LOGIN-CREDENTIALS]")) {
-            Alert.alert("login ou senha incorretos", "")
-        } else {
-            Alert.alert("erro", erro)
+        if(erro.includes("[auth/invalid-email]")){
+            Alert.alert("Email inválido", "Digite um email válido")
+        } else if(erro.includes("[ INVALID_LOGIN_CREDENTIALS ]")){
+            Alert.alert("Login ou senha incorretos", "")
+        } else if(erro.includes("[auth/invalid-credential]")){
+            Alert.alert("Login ou senha incorretos", "")
+        }else{
+            Alert.alert("Erro", erro)
         }
     }
+
     return (
-        <>
-            <View style={styles.container}>
-                <Image
-                    source={{
-                        uri: 'https://static.vecteezy.com/ti/fotos-gratis/p1/22715778-fofa-legal-garoto-dabbing-pose-desenho-animado-icone-ilustracao-pessoas-moda-icone-conceito-isolado-gerar-ai-gratis-foto.jpg'
-                    }}
-                    style={styles.logo}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite seu email"
-                />
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
-                    placeholder="Digite sua senha"
-                />
-                <TouchableOpacity
-                    style={styles.botao}
-                    onPress={() => { clicou() }}
-                >
-                    <Text style={styles.botaoText}>Login</Text>
-                </TouchableOpacity>
+        <View style={styles.container}>
+            <View style={styles.painel_imagem}>
+                <Image 
+                    style={styles.imagem} 
+                    source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png' }} />
             </View>
-        </>
+            
+            <View style={styles.container_login}>
+                <Text
+                    style={styles.titulo_caixa_texto}>
+                    Login
+                </Text>
+                <TextInput
+                    style={styles.caixa_texto}
+                    onChangeText={(text) => {setEmail(text)}}/>
+
+                <Text
+                    style={styles.titulo_caixa_texto}>
+                    Senha
+                </Text>
+                <TextInput
+                    style={styles.caixa_texto} 
+                    onChangeText={(text) => {setSenha(text)}}/>
+
+                <Pressable
+                    style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null] }
+                    onPress={logar}>
+                    <Text style={styles.desc_botao}>Entrar</Text>
+                </Pressable>
+            </View>
+        </View>
     );
-};
+}
+
+export default Login;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'purple',
+        backgroundColor: '#FFFACD'
     },
-    logo: {
-        width: 250,
-        height: 250,
-        borderRadius: 60,
+    container_login: {
+        flex: 2,
+        alignItems: 'center'
     },
-    input: {
-        marginTop: 20,
-        padding: 10,
-        width: 300,
-        backgroundColor: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-        borderRadius: 5
+    titulo_caixa_texto:{
+        fontSize: 25,
+        color: 'black'
+    },
+    caixa_texto: {
+        width: '70%',
+        color: 'black',
+        borderWidth: 1,
+        borderRadius: 4,
+        margin: 3,
+        backgroundColor: 'white'
     },
     botao: {
-        width: 300,
-        height: 42,
-        backgroundColor: 'white',
-        marginTop: 20,
-        borderRadius: 5,
-        alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'green',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        marginTop: 20,
+        borderRadius: 10
     },
-    botaoText: {
+    desc_botao: {
         fontSize: 20,
-        fontWeight: 'bold',
-        color: 'black',
+        color: 'white'
+    },
+    painel_imagem: {
+        flex:1,
+        alignItems:'center', 
+        justifyContent:'center'
+    },
+    imagem: { 
+        width: 200, 
+        height: 200, 
+        resizeMode: "center"
     }
-})
-
-export default Tela;
-
-
+});
