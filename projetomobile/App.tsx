@@ -6,10 +6,14 @@ import Gato from './src/Exemplo2Gato';
 import NomePersonalizado from './src/ExemploParametro';
 import Aprovado from './src/ExerAprov';
 import TelaLogin from './src/TelaLogin';
+import Atividade22 from './src/Atividade22';
+
+import MeuComponente from './src/Atividade21';
 
 function App(): React.JSX.Element{
   return(
-    <TelaLogin/>
+    <Atividade22/>
+    //<MeuComponente titulo='Nome' />
     //<Tela/>
     
   //  <>
