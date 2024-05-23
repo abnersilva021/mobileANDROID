@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, Image, Alert } from 'react-native';
 
 import auth from "@react-native-firebase/auth";
+import { LoginProps } from './navigation/HomeNavigator';
 
-const Login = () => {
+const Login = ({navigation, route}: LoginProps) => {
     const [email, setEmail] = useState(''); 
     const [senha, setSenha] = useState(''); 
 
@@ -73,6 +74,13 @@ const Login = () => {
                     onPress={logar}>
                     <Text style={styles.desc_botao}>Entrar</Text>
                 </Pressable>
+
+                <Pressable
+                    style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null] }
+                    onPress={() =>{navigation.navigate('TelaCadUsuario')}}>
+                    <Text style={styles.desc_botao}>Cadastrar-se</Text>
+                </Pressable>
+
             </View>
         </View>
     );
@@ -123,4 +131,5 @@ const styles = StyleSheet.create({
         height: 200, 
         resizeMode: "center"
     }
+    
 });
