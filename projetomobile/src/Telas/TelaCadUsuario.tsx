@@ -1,10 +1,10 @@
 
 import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
-import config from './Config'
+
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import auth from "@react-native-firebase/auth";
-import { CadUsuarioProps } from './navigation/HomeNavigator';
+import { CadUsuarioProps } from '../navigation/HomeNavigator';
 
 const Cadastro = ({navigation, route}: CadUsuarioProps) => {
 
@@ -31,6 +31,27 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
             return false;
         }
         return true;
+        if(confSenha == ""){
+            Alert.alert("Confirmação de senha em branco", "Digite a confirmação de senha")
+            return false;
+        }
+        if(senha != confSenha){
+            Alert.alert("As senhas não são iguais", "Digite a confirmação de senha corretamente")
+            return false;
+        }
+        return false;
+    }
+    function tratarErros(erro:string){
+        console.log(erro);
+        if(erro.includes("[auth/invalid-email]")){
+            Alert.alert("Email invalido", "Digite um email válido")
+        }else if(erro.includes("[auth/weak-password]")){
+            Alert.alert("Senha Fraca", "A senha digitada é fraca. A senha deve conter pelo" + "menos 6 digitos.")
+        }else if(erro.includes("[auth/email-already-in-use]")){
+            Alert.alert("Email em uso", "O email inserido ja foi cadastrado em outra conta. ")
+        }else{
+            Alert.alert("erro", erro)
+        }
     }
 
     async function Cadastrar() {
@@ -43,7 +64,7 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
          })
          .catch((error) => { tratarErros(String(error))})
          .finally(() =>{
-            //setIsCarregando(false)
+          
          })
         }
     }
@@ -52,7 +73,7 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.inner}>
 
-                <View style={styles.content}>
+                <View >
                     <Text style={styles.title}>Cadastre-se</Text>
                     <Text style={styles.label}>
                         Email
@@ -69,11 +90,11 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
                     <TextInput style={styles.input} secureTextEntry={true} placeholder='Digite novamente sua senha' onChangeText={(text) => { setConfSenha(text) }}>
                     </TextInput>
                     <View style={styles.navigation}>
-                    <TouchableOpacity style={styles.button} onPress={() => []}>
+                    <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("TelaLogin")}}>
                         <Text style={styles.buttonText}>Retornar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => []}>
-                        <Text style={styles.buttonText}>Entrar</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("TelaPrincipal")}}>
+                        <Text style={styles.buttonText}>Cadastrar</Text>
                     </TouchableOpacity>
                     </View>
                 </View>
@@ -98,20 +119,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'column',
 
-        backgroundColor: '#33ccff'
+        backgroundColor: 'purple'
     },
     logo: {
         width: 150,
         height: 150,
         resizeMode: 'contain',
-        marginVertical: config.deviceHeight * 0.05,
+       
         marginHorizontal: 'auto',
     },
     title: {
         textAlign: 'center',
         fontSize:35,
         fontWeight:'bold',
-        color:'#000000',
+        color:'black',
         paddingBottom:50
     },
     navigation: {
@@ -119,11 +140,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
-    content: {
-        marginHorizontal: config.deviceWidth * 0.1,
-    },
+    
     label: {
-        color: '#222',
+        color: 'black',
         fontWeight: 'bold',
         fontSize: 18,
         paddingLeft: 5,
@@ -140,17 +159,17 @@ const styles = StyleSheet.create({
     },
     button: {
         elevation: 5,
-        backgroundColor: "#0066ff",
+        backgroundColor: "white",
         borderRadius: 5,
         paddingVertical: 10,
         paddingHorizontal: 20,
-        marginVertical: config.deviceHeight * 0.03,
+       
         minWidth:110
     },
     buttonText: {
         textAlign: 'center',
         fontWeight: 'bold',
-        color: 'white',
+        color: 'black',
         fontSize: 18,
     }
 });
