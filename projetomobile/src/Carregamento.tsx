@@ -1,13 +1,13 @@
 import { ActivityIndicator, Modal, StyleSheet, View } from "react-native";
 
 type CarregamentoProps = {
-    isCarregamento: boolean;
+    isCarregando: boolean;
 }
 
 const Carregamento = (props: CarregamentoProps) =>{
     return(
         <Modal
-            visible={props.isCarregamento}
+            visible={props.isCarregando}
             transparent ={false}>
             <View style={styles.container}>
                 <ActivityIndicator size="large"/>

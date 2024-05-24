@@ -5,13 +5,14 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import auth from "@react-native-firebase/auth";
 import { CadUsuarioProps } from '../navigation/HomeNavigator';
+import Carregamento from '../Carregamento';
 
 const Cadastro = ({navigation, route}: CadUsuarioProps) => {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confSenha, setConfSenha] = useState('');
-    //const [IsCarregando, setIsCarregando] = useState('');
+    const [isCarregando, setIsCarregando] = useState(false);
 
     function log() {
         console.log('Email: ' + email + '\nSenha: ' + senha + '\nConfirmação de Senha: ' + confSenha)
@@ -55,6 +56,10 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
     }
 
     async function Cadastrar() {
+        setIsCarregando(true);
+
+        
+
         if(verificaCampos()){
          auth()
          .createUserWithEmailAndPassword(email, senha)
@@ -64,15 +69,16 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
          })
          .catch((error) => { tratarErros(String(error))})
          .finally(() =>{
-          
+            setIsCarregando(false);
          })
         }
+        setIsCarregando(false);
     }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.inner}>
-
+                <Carregamento isCarregando = {isCarregando}/>
                 <View >
                     <Text style={styles.title}>Cadastre-se</Text>
                     <Text style={styles.label}>
@@ -93,8 +99,9 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
                     <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("TelaLogin")}}>
                         <Text style={styles.buttonText}>Retornar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("TelaPrincipal")}}>
-                        <Text style={styles.buttonText}>Cadastrar</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("TelaPrincipal")}} 
+                    disabled={isCarregando}> 
+                        <Text style={styles.buttonText}>Cadastrar</Text> 
                     </TouchableOpacity>
                     </View>
                 </View>

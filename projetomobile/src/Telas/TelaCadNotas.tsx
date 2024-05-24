@@ -6,7 +6,7 @@ import { CadNotasProps } from "../navigation/HomeNavigator";
 import { INotas } from "../model/INotas";
 
 
-const TelaCadNota = ({navigation, route}: CadNotaProps) => {
+const TelaCadNota = ({navigation, route}: CadNotasProps) => {
         const [titulo, setTitulo]= useState('');
         const [descricao, setDescricao] = useState('');
         const [isCarregando, setIsCarregando] = useState(false);
@@ -44,12 +44,21 @@ const TelaCadNota = ({navigation, route}: CadNotaProps) => {
                     <Text>Titulo</Text>
                     <TextInput style={styles.caixa_texto} onChangeText={(text) =>{setTitulo(text)}}/> 
 
-                    <Text>Descricao</Text>
-                    <TextInput>
-                        
-                    </TextInput>
+
+                    <Text>Descricao</Text> 
+                    <TextInput multiline numberOfLines={4} maxLength={100} style={styles.caixa_texto} 
+                    onChangeText={(text) => {setDescricao(text)}}/>   
+                   <Pressable
+                   style={styles.botao}
+                   onPress = {()=> cadastrar()}
+                   disabled={isCarregando}>
+                    <Text style={styles.desc_botao}>Cadastrar</Text>
+                   </Pressable>
                 </View>
             )
 
         }
 }
+
+export default TelaCadNota
+
