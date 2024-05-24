@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, Image, Alert } from 'react-native';
 
 import auth from "@react-native-firebase/auth";
-import { LoginProps } from './navigation/HomeNavigator';
+import { LoginProps } from '../navigation/HomeNavigator';
 
 const Login = ({navigation, route}: LoginProps) => {
     const [email, setEmail] = useState(''); 
@@ -91,7 +91,7 @@ export default Login;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFACD'
+        backgroundColor: 'purple'
     },
     container_login: {
         flex: 2,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     },
     botao: {
         justifyContent: 'center',
-        backgroundColor: 'green',
+        backgroundColor: 'white',
         paddingVertical: 10,
         paddingHorizontal: 30,
         marginTop: 20,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     },
     desc_botao: {
         fontSize: 20,
-        color: 'white'
+        color: 'black'
     },
     painel_imagem: {
         flex:1,
