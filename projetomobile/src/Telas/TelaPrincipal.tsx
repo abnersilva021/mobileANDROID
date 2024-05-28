@@ -1,17 +1,26 @@
 import React, {useState} from 'react';
 import { PrincipalProps } from '../navigation/HomeNavigator';
 import { Text, View, StyleSheet, TextInput, Pressable, Image, Alert, TouchableOpacity } from 'react-native';
+import ListaFlat from '../ListaFlat';
 
 const TelaPrincipal = ({navigation, route}: PrincipalProps) =>{
     return(
-        <View >
-            <Text>Bem vindo</Text>
+        <View style={styles.container}>
+            <Text style={styles.titulo}>Bem Vindo</Text>
 
-            <TouchableOpacity
-                    onPress={() => { navigation.navigate('ExerAprov') }}
-                >
-                    <Text >Login</Text>
-                </TouchableOpacity>
+            <Pressable
+                style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null]}
+                onPress={() => { navigation.navigate('TelaCadNotas') }}>
+                <Text style={styles.desc_botao}>Cadastrar Nota</Text>
+            </Pressable>
+
+            <Pressable
+                style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null]}
+                onPress={() => { navigation.navigate('TelaConNotas') }}>
+                <Text style={styles.desc_botao}>Consultar Notas</Text>
+            </Pressable>
+
+            <ListaFlat />
         </View>
     )
 }
@@ -31,5 +40,16 @@ const styles = StyleSheet.create({
     titulo_caixa_texto:{
         fontSize: 25,
         color: 'black'
+    },
+    titulo: {
+        fontSize: 25
+    },
+    desc_botao: {
+        alignItems: 'center',
+        fontSize: 25
+    },
+    botao: {
+        alignItems: 'center',
+        color: 'purlple'
     }
 });
