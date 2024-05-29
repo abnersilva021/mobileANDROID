@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 
-
-
-
-
 const Aprovado = () =>{
     //states
     const[nota1, setNota1] = useState(0);
@@ -50,7 +46,7 @@ const Aprovado = () =>{
 
     //botão chama calcular
 
-    
 }
+
 
 export default Aprovado;

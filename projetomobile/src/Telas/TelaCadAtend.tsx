@@ -5,36 +5,20 @@ import {Alert, Pressable, StyleSheet, Text, TextInput, View} from "react-native"
 import firestore from "@react-native-firebase/firestore";
 import { INotas } from "../model/INotas";
 import Carregamento from "../Carregamento";
-import { AltNotaProps } from "../navigation/HomeNavigator";
+import { CadAtendProps } from "../navigation/HomeNavigator";
 
-const TelaAltNota = ({ navigation, route}: AltNotaProps) =>{
-    const [id] = useState(route.params.id);
+const TelaCadAtend = ({ navigation, route}: CadAtendProps) =>{
+   
     const [titulo, setTitulo] = useState('');
     const [descricao, setDescricao] = useState('');
     const [isCarregando, setIsCarregando] = useState(false); 
 
-    async function carregar() {
-        setIsCarregando(true);
-        const resultado = await firestore().collection('notas').doc(id).get();
-        
-    const nota = {
-        id: resultado.id,
-        ...resultado.data()
-    }as INotas;
+    
 
-    setTitulo(nota.titulo);
-    setDescricao(nota.descricao);
-    setIsCarregando(false);
-        
-    };
-
-    useEffect(() => {
-        carregar();
-    }, []);
-
-    function alterar(){
+    function cadastrar(){
         setIsCarregando(true);
 
+        //Ajustar para cadastrar ao inves de alterar
         firestore()
         .collection('notas')
         .doc(id)
@@ -87,7 +71,7 @@ const TelaAltNota = ({ navigation, route}: AltNotaProps) =>{
     )
 }
 
-export default TelaAltNota;
+export default TelaCadAtend;
 
 const styles = StyleSheet.create({
 container: {
