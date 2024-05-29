@@ -76,10 +76,18 @@ const TelaConNotas = ({ navigation, route }: ConNotasProps) => {
 
 
     function alterarNota(id: string) {
-        navigation.navigate("TelaAltNotas", {id: id})
+        navigation.navigate("TelaAltNota", {id: id})
     }
+    
     function deletarNota(id: string) {
-        
+        setIsCarregando(true);
+
+        firestore().collection('notas').doc(id).delete().then(() =>{
+            Alert.alert("Nota", "Removido com sucesso")
+
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setIsCarregando(false));
     }
 
     return (
@@ -132,13 +140,9 @@ const styles = StyleSheet.create({
 
     },
     container: {
-        backgroundColor: 'purple',
-        alignItems: 'center',
-        fontSize: 50
+        
     },
     titulo: {
-        backgroundColor: 'black',
-        alignItems: 'center',
-        fontSize: 50
+       
     }
 });
