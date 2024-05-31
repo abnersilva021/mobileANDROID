@@ -21,7 +21,6 @@ const TelaCadAtend = ({ navigation, route}: CadAtendProps) =>{
         //Ajustar para cadastrar ao inves de alterar
         firestore()
         .collection('notas')
-        .doc(id)
         .update({
             titulo, 
             descricao, 
@@ -63,9 +62,9 @@ const TelaCadAtend = ({ navigation, route}: CadAtendProps) =>{
         
         <Pressable
             style={styles.botao}
-            onPress={() => alterar()}
+            onPress={() => cadastrar()}
             disabled={isCarregando}>
-            <Text style={styles.desc_botao}>Alterar</Text>
+            <Text style={styles.desc_botao}>Cadastrar</Text>
         </Pressable>
         </View>
     )
