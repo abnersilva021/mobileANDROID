@@ -4,11 +4,11 @@ import { Text, View, StyleSheet, TextInput, Pressable, Image, Alert, TouchableOp
 import ListaFlat from '../ListaFlat';
 
 const TelaPrincipal = ({navigation, route}: PrincipalProps) =>{
-    return(
+    return( 
         <View style={styles.container}>
             <Text style={styles.titulo}>Bem Vindo</Text>
 
-            <Pressable
+            {/* <Pressable
                 style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null]}
                 onPress={() => { navigation.navigate('TelaCadNotas') }}>
                 <Text style={styles.desc_botao}>Cadastrar Nota</Text>
@@ -18,21 +18,21 @@ const TelaPrincipal = ({navigation, route}: PrincipalProps) =>{
                 style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null]}
                 onPress={() => { navigation.navigate('TelaConNotas') }}>
                 <Text style={styles.desc_botao}>Consultar Notas</Text>
-            </Pressable>
+            </Pressable> */}
 
             <Pressable
                     style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null] }
                     onPress={() =>{navigation.navigate('TelaCadCliente')}}>
-                    <Text style={styles.desc_botao}>Cadastro de Cliente</Text>
+                    <Text style={styles.desc_botao}>Cadastro do Cliente</Text>
                 </Pressable>
 
                 <Pressable
                     style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null] }
-                    onPress={() =>{navigation.navigate('TelaCadAtend')}}>
-                    <Text style={styles.desc_botao}>Cadastro de Cliente</Text>
+                    onPress={() =>{navigation.navigate('TelaConNotas')}}>
+                    <Text style={styles.desc_botao}>Consultado do Cliente</Text>
                 </Pressable>
 
-            <ListaFlat />
+               
         </View>
     )
 }
@@ -62,6 +62,13 @@ const styles = StyleSheet.create({
     },
     botao: {
         alignItems: 'center',
-        color: 'purlple'
+        color: 'purlple',
+        width: '80%',
+        
+        borderWidth: 1,
+        borderRadius: 4,
+        margin: 3,
+        backgroundColor: 'white'
+
     }
 });

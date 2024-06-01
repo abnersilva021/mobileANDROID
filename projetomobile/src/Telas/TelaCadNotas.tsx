@@ -50,12 +50,11 @@ const TelaCadNota = ({ navigation, route }: CadNotasProps) => {
             <Text>Descricao</Text>
             <TextInput multiline numberOfLines={4} maxLength={100} style={styles.caixa_texto}
                 onChangeText={(text) => { setDescricao(text) }} />
-            <Pressable
-                style={styles.botao}
-                onPress={() => cadastrar()}
-                disabled={isCarregando}>
-                <Text style={styles.desc_botao}>Cadastrar</Text>
-            </Pressable>
+             <Pressable
+                    style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null] }
+                    onPress={() =>{navigation.navigate('TelaPrincipal')}}>
+                    <Text style={styles.desc_botao}>Consulta do Cliente</Text>
+                </Pressable>
         </View>
     )
 
@@ -88,4 +87,5 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18
     }
+    
 });
