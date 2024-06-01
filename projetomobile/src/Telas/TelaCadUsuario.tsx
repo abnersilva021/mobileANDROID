@@ -106,10 +106,7 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
                     </View>
                 </View>
 
-                {/* Utilização da tag <Pressable> para criar um botão */}
-                {/* <Pressable style={(state) => [styles.botao, state.pressed ? {opacity: 0.5} : null]}>
-                        <Text style={styles.desc_botao}>Entrar</Text>
-                    </Pressable> */}
+               
             </View>
         </TouchableWithoutFeedback>
     )
@@ -139,7 +136,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize:35,
         fontWeight:'bold',
-        color:'black',
+        color:'',
         paddingBottom:50
     },
     navigation: {
@@ -155,7 +152,7 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
     },
     input: {
-        borderColor: 'black',
+        borderColor: 'white',
         borderWidth: 1,
         paddingHorizontal: 10,
         paddingVertical: 5,

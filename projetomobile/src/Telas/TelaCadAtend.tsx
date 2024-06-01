@@ -12,27 +12,27 @@ const TelaCadAtend = ({ navigation, route}: CadAtendProps) =>{
     const [titulo, setTitulo] = useState('');
     const [descricao, setDescricao] = useState('');
     const [isCarregando, setIsCarregando] = useState(false); 
-
+    
     
 
     function cadastrar(){
         setIsCarregando(true);
 
         //Ajustar para cadastrar ao inves de alterar
-        firestore()
-        .collection('notas')
-        .update({
-            titulo, 
-            descricao, 
-            created_at: firestore.FieldValue.serverTimestamp()
-        })
-        .then(() =>{
-          Alert.alert("Nota", "Alterada com sucesso")
-          navigation.goBack();
+        // firestore()
+        // .collection('notas')
+        // .update({
+        //     titulo, 
+        //     descricao, 
+        //     created_at: firestore.FieldValue.serverTimestamp()
+        // })
+        // .then(() =>{
+        //   Alert.alert("Nota", "Alterada com sucesso")
+        //   navigation.goBack();
 
-        })
-        .catch((error) => console.log(error))
-        .finally(() => setIsCarregando(false));
+        // })
+        // .catch((error) => console.log(error))
+        // .finally(() => setIsCarregando(false));
     }
     return(
         <View
@@ -75,7 +75,7 @@ export default TelaCadAtend;
 const styles = StyleSheet.create({
 container: {
     flex: 1,
-    backgroundColor: 'purple',
+    backgroundColor: '',
     alignItems: 'center'
 },
 titulo:{

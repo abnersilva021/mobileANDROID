@@ -52,7 +52,8 @@ const Login = ({navigation, route}: LoginProps) => {
 
         auth()
         .sendPasswordResetEmail(email)
-        .then(() => Alert.alert("Redefinir senha"))
+        .then(() => Alert.alert("Redefinir senha",
+        "Enviamos um email para você redefinir sua senha!"))
         .catch((error) => console.log(error))
     }
 
@@ -91,6 +92,12 @@ const Login = ({navigation, route}: LoginProps) => {
                     style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null] }
                     onPress={() =>{navigation.navigate('TelaCadUsuario')}}>
                     <Text style={styles.desc_botao}>Cadastrar-se</Text>
+                </Pressable>
+
+                <Pressable
+                    style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null] }
+                    onPress={() => {redefinirSenha()}}>
+                    <Text style={styles.desc_botao}>Redefinir Senha</Text>
                 </Pressable>
 
                 

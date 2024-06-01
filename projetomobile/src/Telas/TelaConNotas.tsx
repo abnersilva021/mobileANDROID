@@ -21,9 +21,42 @@ const ItemNota = (props: ItemNotaProps) => {
         <View style={styles.card}>
             <View style={styles.dados_card}>
                 <Text style={{ fontSize: 35 }}>
-                    {props.numero + 1 + ' - ' + props.nota.titulo}
+                    {props.numero + 1 + ' - ' + props.nota.nome}
                 </Text>
-                <Text style={{ fontSize: 20 }}>{props.nota.descricao}</Text>
+
+                <Text style={{ fontSize: 35 }}>
+                    {props.numero + 1 + ' - ' + props.nota.cpf}
+                </Text>
+
+                <Text style={{ fontSize: 35 }}>
+                    {props.numero + 1 + ' - ' + props.nota.rua}
+                </Text>
+
+                <Text style={{ fontSize: 35 }}>
+                    {props.numero + 1 + ' - ' + props.nota.numero}
+                </Text>
+
+                <Text style={{ fontSize: 35 }}>
+                    {props.numero + 1 + ' - ' + props.nota.bairro}
+                </Text>
+
+                <Text style={{ fontSize: 35 }}>
+                    {props.numero + 1 + ' - ' + props.nota.complemento}
+                </Text>
+
+                <Text style={{ fontSize: 35 }}>
+                    {props.numero + 1 + ' - ' + props.nota.cidade}
+                </Text>
+
+                <Text style={{ fontSize: 35 }}>
+                    {props.numero + 1 + ' - ' + props.nota.estado}
+                </Text>
+
+                <Text style={{ fontSize: 35 }}>
+                    {props.numero + 1 + ' - ' + props.nota.nascimento}
+                </Text>
+
+ 
             </View>
 
             <View style={styles.botao_alterar}>
