@@ -31,16 +31,13 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
             Alert.alert('Confirmação de senha em branco', 'Digite uma senha')
             return false;
         }
-        return true;
-        if(confSenha == ""){
-            Alert.alert("Confirmação de senha em branco", "Digite a confirmação de senha")
-            return false;
-        }
+        
+
         if(senha != confSenha){
             Alert.alert("As senhas não são iguais", "Digite a confirmação de senha corretamente")
             return false;
         }
-        return false;
+        return true;
     }
     function tratarErros(erro:string){
         console.log(erro);
@@ -99,7 +96,7 @@ const Cadastro = ({navigation, route}: CadUsuarioProps) => {
                     <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("TelaLogin")}}>
                         <Text style={styles.buttonText}>Retornar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("TelaPrincipal")}} 
+                    <TouchableOpacity style={styles.button} onPress={() => Cadastrar()} 
                     disabled={isCarregando}> 
                         <Text style={styles.buttonText}>Cadastrar</Text> 
                     </TouchableOpacity>

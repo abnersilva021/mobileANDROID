@@ -5,6 +5,13 @@ import ListaFlat from '../ListaFlat';
 
 const TelaPrincipal = ({navigation, route}: PrincipalProps) =>{
     return( 
+
+       <View style={styles.container}>
+
+                    <Image 
+                    style={styles.imagem} 
+                    source={{ uri: 'https://cdn4.iconfinder.com/data/icons/essential-app-2/16/user-avatar-human-admin-login-256.png' }} />
+
         <View style={styles.container}>
             <Text style={styles.titulo}>Bem Vindo</Text>
 
@@ -29,10 +36,11 @@ const TelaPrincipal = ({navigation, route}: PrincipalProps) =>{
                 <Pressable
                     style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null] }
                     onPress={() =>{navigation.navigate('TelaConNotas')}}>
-                    <Text style={styles.desc_botao}>Consultado do Cliente</Text>
+                    <Text style={styles.desc_botao}>Consulta do Cliente</Text>
                 </Pressable>
 
                
+        </View>
         </View>
     )
 }
@@ -43,18 +51,21 @@ export default TelaPrincipal;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'purple'
+        backgroundColor: 'purple',
+        alignItems: 'center'
     },
     container_login: {
         flex: 2,
-        alignItems: 'center'
+       
     },
     titulo_caixa_texto:{
         fontSize: 25,
-        color: 'black'
+        color: 'black',
+        alignItems: "center"
     },
     titulo: {
-        fontSize: 25
+        fontSize: 25,
+        alignItems:'center'
     },
     desc_botao: {
         alignItems: 'center',
@@ -70,5 +81,12 @@ const styles = StyleSheet.create({
         margin: 3,
         backgroundColor: 'white'
 
+    },
+    
+    imagem: { 
+        width: 200, 
+        height: 200, 
+        resizeMode: "center",
+        
     }
 });
