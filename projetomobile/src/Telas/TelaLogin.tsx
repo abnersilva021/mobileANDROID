@@ -13,7 +13,7 @@ const Login = ({navigation, route}: LoginProps) => {
 
             auth()
                 .signInWithEmailAndPassword(email, senha)
-                .then(() => { Alert.alert('Logado com sucesso') })
+                .then(() => { navigation.navigate("TelaPrincipal") })
                 .catch((error) => tratarErros( String(error) ))
         }
     }
@@ -62,7 +62,7 @@ const Login = ({navigation, route}: LoginProps) => {
             <View style={styles.painel_imagem}>
                 <Image 
                     style={styles.imagem} 
-                    source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png' }} />
+                    source={{ uri: 'https://cdn4.iconfinder.com/data/icons/essential-app-2/16/user-avatar-human-admin-login-256.png' }} />
             </View>
             
             <View style={styles.container_login}>
@@ -78,7 +78,7 @@ const Login = ({navigation, route}: LoginProps) => {
                     style={styles.titulo_caixa_texto}>
                     Senha
                 </Text>
-                <TextInput
+                <TextInput secureTextEntry={true}
                     style={styles.caixa_texto} 
                     onChangeText={(text) => {setSenha(text)}}/>
 

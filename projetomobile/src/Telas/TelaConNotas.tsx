@@ -25,35 +25,35 @@ const ItemNota = (props: ItemNotaProps) => {
                 </Text>
 
                 <Text style={{ fontSize: 35 }}>
-                    {props.numero + 1 + ' - ' + props.nota.cpf}
+                    {props.numero + 2 + ' - ' + props.nota.cpf}
                 </Text>
 
                 <Text style={{ fontSize: 35 }}>
-                    {props.numero + 1 + ' - ' + props.nota.rua}
+                    {props.numero + 3 + ' - ' + props.nota.rua}
                 </Text>
 
                 <Text style={{ fontSize: 35 }}>
-                    {props.numero + 1 + ' - ' + props.nota.numero}
+                    {props.numero + 4 + ' - ' + props.nota.numero}
                 </Text>
 
                 <Text style={{ fontSize: 35 }}>
-                    {props.numero + 1 + ' - ' + props.nota.bairro}
+                    {props.numero + 5 + ' - ' + props.nota.bairro}
                 </Text>
 
                 <Text style={{ fontSize: 35 }}>
-                    {props.numero + 1 + ' - ' + props.nota.complemento}
+                    {props.numero + 6 + ' - ' + props.nota.complemento}
                 </Text>
 
                 <Text style={{ fontSize: 35 }}>
-                    {props.numero + 1 + ' - ' + props.nota.cidade}
+                    {props.numero + 7 + ' - ' + props.nota.cidade}
                 </Text>
 
                 <Text style={{ fontSize: 35 }}>
-                    {props.numero + 1 + ' - ' + props.nota.estado}
+                    {props.numero + 8 + ' - ' + props.nota.estado}
                 </Text>
 
                 <Text style={{ fontSize: 35 }}>
-                    {props.numero + 1 + ' - ' + props.nota.nascimento}
+                    {props.numero + 9 + ' - ' + props.nota.nascimento}
                 </Text>
 
  
@@ -127,7 +127,7 @@ const TelaConNotas = ({ navigation, route }: ConNotasProps) => {
         <View style={styles.container}>
             <Carregamento isCarregando={isCarregando} />
 
-            <Text style={styles.titulo}>Listagem de Notas</Text>
+            <Text style={styles.titulo}>Lista de clientes</Text>
             <FlatList
                 data={notas}
                 renderItem={(info) =>
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
 
     },
     botao_deletar: {
-        backgroundColor: 'red',
+        backgroundColor: 'purple',
         width: 40,
         justifyContent: 'center',
         alignItems: 'center'
@@ -163,10 +163,10 @@ const styles = StyleSheet.create({
     texto_botao_card: {
         fontWeight: "bold",
         fontSize: 40,
-        color: 'black'
+        color: 'white'
     },
     botao_alterar: {
-        backgroundColor: 'yellow',
+        backgroundColor: 'black',
         width: 40,
         justifyContent: 'center',
         alignItems: 'center'
@@ -176,6 +176,8 @@ const styles = StyleSheet.create({
         
     },
     titulo: {
-       
+        fontSize: 25,
+        alignItems:'center',
+        alignContent: 'center'
     }
 });

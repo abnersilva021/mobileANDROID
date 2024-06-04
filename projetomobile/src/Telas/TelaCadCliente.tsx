@@ -21,7 +21,29 @@ const TelaCadCliente = ({ navigation, route }: CadClienteProps) => {
     const [nascimento, setNascimento] = useState('');
     const [isCarregando, setIsCarregando] = useState(false);
 
+    function formatarData (text: string){
+        let a1 = '';
+        let a2 = '';
+        let a3 = '';
+        let texto = '';
+        if(text.indexOf('/')== -1){
+            if(Date.length >= 8){
+                a1 = text.slice(0,2)
+                a1 = a1 + '/'
 
+            }
+            if(Date.length >= 8){
+                a2 = text.slice(2,4)
+                a2 = a2 + '/'
+            }
+            if(Date.length >= 8){
+                a3 = text.slice(4,8)
+                
+            }
+        } 
+        texto = a1 + a2 + a3
+        return texto;
+    }
     function cadastrar() {
         setIsCarregando(true);
         if (verificaCampos()) {
