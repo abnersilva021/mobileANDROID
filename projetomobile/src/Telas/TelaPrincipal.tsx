@@ -39,6 +39,11 @@ const TelaPrincipal = ({navigation, route}: PrincipalProps) =>{
                     <Text style={styles.desc_botao}>Consulta do Cliente</Text>
                 </Pressable>
 
+                <Pressable
+                    style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null] }
+                    onPress={() =>{navigation.navigate('TelaCadAtend2')}}>
+                    <Text style={styles.desc_botao}>Cadastro do atendimento</Text>
+                </Pressable>
                
         </View>
         </View>
@@ -72,15 +77,12 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     botao: {
-        alignItems: 'center',
-        color: 'purlple',
-        width: '80%',
-        
-        borderWidth: 1,
-        borderRadius: 4,
-        margin: 3,
-        backgroundColor: 'white'
-
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        marginTop: 20,
+        borderRadius: 10
     },
     
     imagem: { 
