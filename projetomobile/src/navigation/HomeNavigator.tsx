@@ -16,6 +16,7 @@ import SegundaAtiv2 from "../AtivAvali2905/SegundaAtiv2";
 
 import TerceiraAtiv3 from "../AtivAvali2905/TerceiraAtiv3";
 
+import TelaCadAtend2 from "../Telas/TelaCadAtend2";
 
 
 
@@ -37,6 +38,8 @@ type RootStackParamList = {
     SegundaAtiv2: undefined;
     TerceiraAtiv3: undefined;
 
+    TelaCadAtend2: undefined;
+
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -57,6 +60,8 @@ const HomeNavigator = () =>{
             <Stack.Screen name = "PrimeiraAtiv" component = {PrimeiraAtiv}/>
             <Stack.Screen name = "SegundaAtiv2" component = {SegundaAtiv2}/>
             <Stack.Screen name = "TerceiraAtiv3" component = {TerceiraAtiv3}/>
+
+            <Stack.Screen name = "TelaCadAtend2" component = {TelaCadAtend2}/> 
 
             
         </Stack.Navigator>
@@ -86,5 +91,7 @@ const HomeNavigator = () =>{
     type Ativ2Props = NativeStackScreenProps<RootStackParamList, 'SegundaAtiv2'>;
     type Ativ3Props = NativeStackScreenProps<RootStackParamList, 'TerceiraAtiv3'>;
 
+    type CadAtend2Props = NativeStackScreenProps<RootStackParamList, 'TelaCadAtend2'>;
+
     export default HomeNavigator;
-    export type { LoginProps, CadUsuarioProps, PrincipalProps, CadNotasProps, ExerAprovProps, ConNotasProps, AltNotaProps, CadClienteProps, CadAtendProps, AtivProps, Ativ2Props, Ativ3Props};
+    export type { LoginProps, CadUsuarioProps, PrincipalProps, CadNotasProps, ExerAprovProps, ConNotasProps, AltNotaProps, CadClienteProps, CadAtendProps, AtivProps, Ativ2Props, Ativ3Props, CadAtend2Props};
