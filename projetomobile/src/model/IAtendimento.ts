@@ -1,15 +1,12 @@
-import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { FirebaseFirestoreTypes } from "@react-native-firebase/firestore";
-
 type IAtendimento = {
- id: string | undefined,
- descricao: string,
- nome: string,
- data: string,
- created_at: FirebaseFirestoreTypes.FieldValue
- 
+    id: string | undefined,
+    nome: string,
+    data: string,
+    descriçao: string,
+    created_at: FirebaseFirestoreTypes.FieldValue
 }
 
-export type{
+export type {
     IAtendimento
-}
+};

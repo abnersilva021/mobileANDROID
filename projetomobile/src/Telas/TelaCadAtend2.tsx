@@ -1,26 +1,64 @@
+// Cadastro de atendimento (Cadastrar, listar). Com dados de cliente, data, hora e descrição do atendimento.(Criar validação para os campos. Ex: somente números, formato da data)
+import React, { useEffect, useState } from "react";
+import { Alert, Text, TextInput, View, StyleSheet, Pressable, ScrollView, Button } from "react-native";
 
-
-import { Alert, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native"
-
-
+import firestore from "@react-native-firebase/firestore";
+import Carregamento from "../Carregamento";
 import { CadAtend2Props } from "../navigation/HomeNavigator";
-import { Dropdown } from "react-native-element-dropdown";
-import { useEffect, useState } from "react";
 import { INotas } from "../model/INotas";
 import { IAtendimento } from "../model/IAtendimento";
-import firestore from "@react-native-firebase/firestore";
+import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
 
-const TelaCadAtend2 = ({ navigation, route }: CadAtend2Props) => {
-    const [isFocus, setIsFocus] = useState(false);
-    const [value, setValue] = useState(null);
+const TelaCadAtendimento = ({ navigation, route }: CadAtend2Props) => {
+    const [atendimento, setAtendimento] = useState([] as IAtendimento[]);
     const [isCarregando, setIsCarregando] = useState(false);
-    const [Clientes, setIsClientes] = useState([] as INotas[]);
-    const [date, setDate] = useState(new Date())
-    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState(null);
+    const [isFocus, setIsFocus] = useState(false);
+    const [date, setDate] = useState(new Date());
+    const [open, setOpen] = useState(false);
+    const [descricao, setDescricao] = useState('');
+    const [nome, setNome] = useState(String);
 
+    function Cadastrar() {
+        setIsCarregando(true);
 
+        if (verificaCampos()) {
+            let nota = {
+                nome: nome,
+                data: date.toLocaleString(),
+                descriçao: descricao,
+                created_at: firestore.FieldValue.serverTimestamp()
+            } as IAtendimento;
+
+            firestore()
+                .collection('atendimentos')
+                .add(nota)
+                .then(() => {
+                    Alert.alert("Atendimento", "Cadastrado com sucesso")
+                    navigation.navigate('TelaPrincipal')
+                })
+                .catch((error) => console.log(error))
+                .finally(() => setIsCarregando(false));
+        }
+        setIsCarregando(false);
+    }
+    function verificaCampos() {
+        if (nome == "") {
+            Alert.alert("Nome em branco")
+            return false;
+        }
+        if (date.toLocaleString() == "") {
+            Alert.alert("Data/hora em branco")
+            return false;
+        }
+        if (descricao == "") {
+            Alert.alert("Descrição em branco")
+            return false;
+        }
+        return true;
+    }
     useEffect(() => {
         setIsCarregando(true);
 
@@ -34,123 +72,142 @@ const TelaCadAtend2 = ({ navigation, route }: CadAtend2Props) => {
                         ...doc.data()
                     }
 
-                }) as INotas[];
+                }) as IAtendimento[];
 
-                setIsClientes(data);
+                setAtendimento(data);
                 setIsCarregando(false);
             });
 
         return () => subscribe();
     }, []);
 
-
-
     return (
         <View style={styles.container}>
 
-            <Image
-                style={styles.imagem}
-                source={{ uri: 'https://cdn4.iconfinder.com/data/icons/essential-app-2/16/user-avatar-human-admin-login-256.png' }} />
+            <Carregamento isCarregando={isCarregando} />
 
-            <Text style={styles.titulo}>Cadastro</Text>
+            <ScrollView >
 
-            <Dropdown
-                style={styles.dropdown}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                data={Clientes}
-                search
-                maxHeight={300}
-                labelField="nome"
-                valueField="nome"
-                placeholder={!isFocus ? 'Select item' : '...'}
-                searchPlaceholder="Search..."
-                value={value}
-                onFocus={() => setIsFocus(true)}
-                onBlur={() => setIsFocus(false)}
-                onChange={item => {
-                    setValue(item.nome as any);
-                    setIsFocus(false);
-                }}
+                <Text style={styles.titulo}>Cadastro de Atendimento</Text>
 
-            />
-            <TextInput style={styles.caixa_texto} onPress={() => setOpen(true)} value={date.toLocaleString()}/>
-                
-            
+                <Text style={styles.label}>Pesquisar Cliente</Text>
+                <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholder}
+                    selectedTextStyle={styles.selected}
+                    inputSearchStyle={styles.input}
+                    data={atendimento}
+                    search
+                    maxHeight={300}
+                    labelField="nome"
+                    valueField="nome"
+                    placeholder={!isFocus ? 'Selecionar' : '...'}
+                    searchPlaceholder="Search..."
+                    value={value}
+                    onFocus={() => setIsFocus(true)}
+                    onBlur={() => setIsFocus(false)}
+                    onChange={item => {
+                        setValue(item.nome as any);
+                        setNome(item.nome);
+                        setIsFocus(false);
+                    }}
+                />
 
-            <DatePicker
-                modal
-                open={open}
-                date={date}
-                onConfirm={(date) => {
-                    setOpen(false)
-                    setDate(date)
-                }}
-                onCancel={() => {
-                    setOpen(false)
-                }}
-            />
+                <Text style={styles.label}>Data/hora</Text>
+                <TextInput
+                    style={styles.caixa_texto} onPress={() => setOpen(true)} value={date.toLocaleString()} />
+                <DatePicker
+                    modal
+                    open={open}
+                    date={date}
+                    onConfirm={(date) => {
+                        setOpen(false)
+                        setDate(date)
 
-            <Pressable
-                style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null]}
-                onPress={() => { navigation.navigate('TelaPrincipal') }}>
-                <Text style={styles.desc_botao}>Voltar</Text>
-            </Pressable>
-        </View>
+                    }}
+                    onCancel={() => {
+                        setOpen(false)
+                    }}
+                />
 
+                <Text
+                    style={styles.label}>
+                    Descrição
+                </Text>
+                <TextInput
+                    multiline
+                    numberOfLines={4}
+                    maxLength={100}
+                    style={styles.caixa_texto}
+                    value={descricao}
+                    onChangeText={(text) => { setDescricao(text) }} />
 
+                <Pressable
+                    style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null]}
+                    onPress={() => Cadastrar()} disabled={isCarregando}>
+                    <Text style={styles.desc_botao}>Cadastrar</Text>
+                </Pressable>
+
+                <Pressable
+                    style={(state) => [styles.botao, state.pressed ? { opacity: 0.5 } : null]}
+                    onPress={() => { navigation.navigate('TelaPrincipal') }}>
+                    <Text style={styles.desc_botao}>Voltar</Text>
+                </Pressable>
+
+            </ScrollView>
+        </View >
     )
-
-
 }
-export default TelaCadAtend2;
+
+export default TelaCadAtendimento;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'purple',
-        padding: 16,
+        backgroundColor: 'purple'
+    },
+    titulo: {
+        textAlign: 'center',
+        fontSize: 35,
+        fontWeight: 'bold',
+        color: '#000000',
+        paddingBottom: 50
     },
     dropdown: {
         height: 50,
         borderColor: 'gray',
         borderWidth: 0.5,
         borderRadius: 8,
-        paddingHorizontal: 8,
+        paddingHorizontal: 8
     },
-    icon: {
-        marginRight: 10,
+    placeholder: {
+        fontSize: 20
     },
-    label: {
-        position: 'absolute',
-        backgroundColor: 'white',
-        left: 22,
-        top: 8,
-        zIndex: 999,
-        paddingHorizontal: 8,
-        fontSize: 14,
+    selected: {
+        fontSize: 20
     },
-    placeholderStyle: {
-        fontSize: 16,
-    },
-    selectedTextStyle: {
-        fontSize: 16,
-    },
-    iconStyle: {
-        width: 20,
-        height: 20,
-    },
-    inputSearchStyle: {
+    input: {
         height: 40,
         fontSize: 16,
     },
-    desc_botao: {
-        alignItems: 'center',
-        fontSize: 25
+    label: {
+        color: '#222',
+        fontWeight: 'bold',
+        fontSize: 18,
+        paddingLeft: 5,
+    },
+    caixa_texto: {
+        width: '70%',
+        color: 'black',
+        borderWidth: 1,
+        borderRadius: 4,
+        margin: 3,
+        backgroundColor: 'white'
     },
     botao: {
+        borderWidth: 3,
+        marginVertical: 10,
+        color: 'black',
         justifyContent: 'center',
         backgroundColor: 'white',
         paddingVertical: 10,
@@ -158,19 +215,13 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderRadius: 10
     },
-    titulo: {
-        fontSize: 25,
-        alignItems: 'center',
-        alignSelf: 'center'
+    desc_botao: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: 'black',
+        fontSize: 18
     },
-    imagem: {
-        width: 200,
-        height: 200,
-        resizeMode: "center",
-        alignSelf: 'center'
-    }, 
-    caixa_texto: {
-
+    desc_caixa_texto: {
+        fontSize: 18
     }
 });
-
